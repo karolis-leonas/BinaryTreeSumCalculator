@@ -10,19 +10,19 @@ namespace PyramidBinaryTreeCalculator.Services.PyramidBinaryTreeCalculateService
         {
             var isInitialNodeEven = pyramidBinaryTreeParameters.InitialNode.Value % 2 == 0;
             var allProperPyramidBinaryTreeResults = new List<PyramidBinaryTreeSumResults>();
-            var initialRouteSum = 0;
+            var initialPathSum = 0;
 
             var initialNodeSumResults = new PyramidBinaryTreeSumResults()
             {
-                Route = new List<int>(),
-                RouteSum = initialRouteSum
+                Path = new List<int>(),
+                PathSum = initialPathSum
             };
 
             CalculateSumAndPathFromTreeNode(allProperPyramidBinaryTreeResults, pyramidBinaryTreeParameters.InitialNode,
                 initialNodeSumResults, !isInitialNodeEven, pyramidBinaryTreeParameters.Depth);
 
             var maximumSumResult = allProperPyramidBinaryTreeResults.Any() 
-                ? allProperPyramidBinaryTreeResults.Aggregate((firstItem, nextItem) =>  nextItem.RouteSum > firstItem.RouteSum ? nextItem : firstItem)
+                ? allProperPyramidBinaryTreeResults.Aggregate((firstItem, nextItem) =>  nextItem.PathSum > firstItem.PathSum ? nextItem : firstItem)
                 : null;
 
             return maximumSumResult;
@@ -31,13 +31,13 @@ namespace PyramidBinaryTreeCalculator.Services.PyramidBinaryTreeCalculateService
         private void CalculateSumAndPathFromTreeNode(List<PyramidBinaryTreeSumResults> allProperPyramidBinaryTreeResults, 
             PyramidBinaryTreeNode currentTreeNode, PyramidBinaryTreeSumResults previousNodeSumResults, bool isFollowingNodeEven, int pyramidBinaryTreeDepth)
         {
-            var newRoute = new List<int>(previousNodeSumResults.Route) {currentTreeNode.Value};
-            var newRouteSum = previousNodeSumResults.RouteSum + currentTreeNode.Value;
+            var newPath = new List<int>(previousNodeSumResults.Path) {currentTreeNode.Value};
+            var newPathSum = previousNodeSumResults.PathSum + currentTreeNode.Value;
 
             var currentNodeSumResults = new PyramidBinaryTreeSumResults()
             {
-                RouteSum = newRouteSum,
-                Route = newRoute
+                Path = newPath,
+                PathSum = newPathSum
             };
 
             if (currentTreeNode.LeftChildNode == null && currentTreeNode.RightChildNode == null && currentTreeNode.DepthLevel == pyramidBinaryTreeDepth)

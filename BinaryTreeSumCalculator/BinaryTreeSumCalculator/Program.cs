@@ -36,7 +36,7 @@ namespace PyramidBinaryTreeCalculator
                     223 626 034 683 839 052 627 310 713 999 629 817 410 121
                     924 622 911 233 325 139 721 218 253 223 107 233 230 124 233";
 
-                Console.WriteLine("Starting pyramid binary tree read application");
+                Console.WriteLine("Starting pyramid binary tree read application...");
                 Console.WriteLine();
 
                 var pyramidBinaryTree = pyramidBinaryTreeReadService.ReadAndMapPyramidBinaryTree(unparsedPyramidBinaryTree);
@@ -48,8 +48,8 @@ namespace PyramidBinaryTreeCalculator
                 }
                 else
                 {
-                    Console.WriteLine($"Maximum sum of pyramid binary tree path is {maximumSumResults.RouteSum}.");
-                    Console.WriteLine($"Pyramid binary tree path is: {string.Join(", ", maximumSumResults.Route)}.");
+                    Console.WriteLine($"Maximum sum of pyramid binary tree path is {maximumSumResults.PathSum}.");
+                    Console.WriteLine($"Pyramid binary tree path is: {string.Join(", ", maximumSumResults.Path)}.");
                 }
 
                 Console.WriteLine();

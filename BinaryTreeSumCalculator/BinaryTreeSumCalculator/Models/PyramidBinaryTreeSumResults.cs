@@ -4,7 +4,7 @@ namespace PyramidBinaryTreeCalculator.Models
 {
     public class PyramidBinaryTreeSumResults
     {
-        public int RouteSum { get; set; }
-        public List<int> Route { get; set; }
+        public int PathSum { get; set; }
+        public List<int> Path { get; set; }
     }
 }

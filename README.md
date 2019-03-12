@@ -1,1 +1,1 @@
-# BinaryTreeSumCalculator
+# PyramidBinaryTreeCalculator

@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace PyramidBinaryTreeCalculator.Models
+﻿namespace PyramidBinaryTreeCalculator.Models
 {
     public class PyramidBinaryTreeParameters
     {
+        public int Depth { get; set; }
         public PyramidBinaryTreeNode InitialNode { get; set; }
-        public PyramidBinaryTreeSumResults PyramidSumResults { get; set; }
     }
 }

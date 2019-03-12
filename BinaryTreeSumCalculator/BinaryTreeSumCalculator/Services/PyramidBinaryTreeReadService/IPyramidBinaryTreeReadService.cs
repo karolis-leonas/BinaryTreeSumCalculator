@@ -1,6 +1,6 @@
 ﻿using PyramidBinaryTreeCalculator.Models;
 
-namespace PyramidBinaryTreeCalculator.Services
+namespace PyramidBinaryTreeCalculator.Services.PyramidBinaryTreeReadService
 {
     public interface IPyramidBinaryTreeReadService
     {

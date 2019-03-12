@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PyramidBinaryTreeCalculator.Services;
+using PyramidBinaryTreeCalculator.Services.PyramidBinaryTreeCalculateService;
+using PyramidBinaryTreeCalculator.Services.PyramidBinaryTreeReadService;
 
-namespace BinaryTreeSumCalculator
+namespace PyramidBinaryTreeCalculator
 {
     class Program
     {
@@ -14,11 +15,12 @@ namespace BinaryTreeSumCalculator
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var logger = serviceProvider.GetService<ILogger<Program>>();
-            var binaryTreeReadService = serviceProvider.GetService<IPyramidBinaryTreeReadService>();
+            var pyramidBinaryTreeReadService = serviceProvider.GetService<IPyramidBinaryTreeReadService>();
+            var pyramidBinaryTreeCalculateService = serviceProvider.GetService<IPyramidBinaryTreeCalculateService>();
 
             try
             {
-                const string unparsedTree = @"215
+                const string unparsedPyramidBinaryTree = @"215
                     192 124
                     117 269 442
                     218 836 347 235
@@ -34,10 +36,23 @@ namespace BinaryTreeSumCalculator
                     223 626 034 683 839 052 627 310 713 999 629 817 410 121
                     924 622 911 233 325 139 721 218 253 223 107 233 230 124 233";
 
-                Console.WriteLine("Starting binary tree application");
-                var result = binaryTreeReadService.ReadAndMapPyramidBinaryTree(unparsedTree);
+                Console.WriteLine("Starting pyramid binary tree read application");
+                Console.WriteLine();
 
+                var pyramidBinaryTree = pyramidBinaryTreeReadService.ReadAndMapPyramidBinaryTree(unparsedPyramidBinaryTree);
+                var maximumSumResults = pyramidBinaryTreeCalculateService.CalculatePyramidBinaryTreeMaximumSumResults(pyramidBinaryTree);
 
+                if (maximumSumResults == null)
+                {
+                    Console.WriteLine($"Maximum sum of pyramid binary tree path was not found.");
+                }
+                else
+                {
+                    Console.WriteLine($"Maximum sum of pyramid binary tree path is {maximumSumResults.RouteSum}.");
+                    Console.WriteLine($"Pyramid binary tree path is: {string.Join(", ", maximumSumResults.Route)}.");
+                }
+
+                Console.WriteLine();
                 Console.WriteLine("Press any key to close...");
                 Console.ReadKey();
             }
@@ -51,6 +66,7 @@ namespace BinaryTreeSumCalculator
         {
             services.AddLogging(configure => configure.AddConsole())
                 .AddSingleton<IPyramidBinaryTreeReadService, PyramidBinaryTreeReadService>()
+                .AddSingleton<IPyramidBinaryTreeCalculateService, PyramidBinaryTreeCalculateService>()
                 .BuildServiceProvider();
         }
     }

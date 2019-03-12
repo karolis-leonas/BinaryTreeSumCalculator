@@ -4,31 +4,33 @@ using System.IO;
 using System.Linq;
 using PyramidBinaryTreeCalculator.Models;
 
-namespace PyramidBinaryTreeCalculator.Services
+namespace PyramidBinaryTreeCalculator.Services.PyramidBinaryTreeReadService
 {
     public class PyramidBinaryTreeReadService: IPyramidBinaryTreeReadService
     {
         public PyramidBinaryTreeParameters ReadAndMapPyramidBinaryTree(string unparsedTree)
         {
-            var treeRows = new List<List<int>>();
+            var pyramidBinaryTreeRows = new List<List<int>>();
 
-            using (var stringReader = new StringReader(unparsedTree))
+            using (var reader = new StringReader(unparsedTree))
             {
-                string line;
-                while ((line = stringReader.ReadLine()) != null)
+                for (var line = reader.ReadLine(); line != null; line = reader.ReadLine())
                 {
-                    var treeRowValues = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                    var pyramidTreeRowValues = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
 
-                    treeRows.Add(treeRowValues);
+                    pyramidBinaryTreeRows.Add(pyramidTreeRowValues);
                 }
             }
 
-            var pyramidBinaryTree = new PyramidBinaryTreeParameters()
+            var initialRowIndex = 0;
+            var initialColumnIndex = 0;
+            var pyramidBinaryTreeParameters = new PyramidBinaryTreeParameters()
             {
-                InitialNode = CreateBinaryTreeNode(treeRows, 0, 0)
+                Depth = pyramidBinaryTreeRows.Count,
+                InitialNode = CreateBinaryTreeNode(pyramidBinaryTreeRows, initialRowIndex, initialColumnIndex)
             };
 
-            return pyramidBinaryTree;
+            return pyramidBinaryTreeParameters;
         }
 
         private PyramidBinaryTreeNode CreateBinaryTreeNode(List<List<int>> treeRows, int rowIndex, int columnIndex)
